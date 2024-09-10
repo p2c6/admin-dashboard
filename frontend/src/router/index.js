@@ -12,14 +12,14 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   
-//   const isAuthenticated = !!localStorage.getItem('authToken'); // Example auth check
-//   if (to.meta.requiresAuth && !isAuthenticated) {
-//     next('/login');
-//   } else {
-//     next();
-//   }
-// });
+  const isAuthenticated = !!localStorage.getItem('authToken'); // Example auth check
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/');
+  } else {
+    next();
+  }
+});
 
 export default router
