@@ -9,7 +9,7 @@ export default  [
     component: AuthLayout,
     children: [
       {
-        path: 'home',
+        path: '',
         name: 'home',
         component: HomeView,
       },
