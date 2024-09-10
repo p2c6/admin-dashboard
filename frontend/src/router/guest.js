@@ -8,7 +8,7 @@ export default [
     component: GuestLayout,
     children: [
       {
-        path: 'login',
+        path: '',
         name: 'Login',
         component: Login,
       },
