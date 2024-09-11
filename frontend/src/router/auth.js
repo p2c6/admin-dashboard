@@ -1,8 +1,8 @@
 // auth.js
 import AuthLayout from '@/components/layouts/AuthLayout.vue';
 import HomeView from '@/views/HomeView.vue';
-import PostView from '@/views/PostView.vue';
 import VideosView from '@/views/VideosView.vue';
+import ProductsView from '@/views/ProductsView.vue';
 
 export default [
   {
@@ -15,9 +15,9 @@ export default [
         component: HomeView,
       },
       {
-        path: 'posts',
-        name: 'posts',
-        component: PostView,
+        path: 'products',
+        name: 'products',
+        component: ProductsView,
       },
       {
         path: 'videos',

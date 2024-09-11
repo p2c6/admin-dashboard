@@ -158,11 +158,11 @@ import { RouterLink } from 'vue-router';
             </ul>
           </li> -->
           <li class="nav-item">
-            <RouterLink :to="{name: 'posts'}">
+            <RouterLink :to="{name: 'products'}">
               <a class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Posts
+                  Products
                   
                 </p>
               </a>

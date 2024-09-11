@@ -17,7 +17,7 @@ onMounted(async() => {
 </script>
 
 <template>
-    <Content title="Listing of All Post" current="Posts">
+    <Content title="Listing of All Post" current="Products">
         <Card>
             <table class="table table-bordered">
                 <thead>
