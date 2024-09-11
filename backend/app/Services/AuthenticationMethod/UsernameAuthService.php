@@ -15,7 +15,7 @@ class UsernameAuthService implements LoginInterface
                 'password' => 'required',
             ]);
 
-            if (Auth::attempt($credentials)) return response()->json(['data' => [ 'user' => $request->user()]], 200);
+            if (Auth::attempt($credentials, $request->input('remember'))) return response()->json(['data' => [ 'user' => $request->user()]], 200);
 
             return response()->json([
                 'message' => 'Invalid credentials.'

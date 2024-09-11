@@ -15,8 +15,8 @@ class EmailAuthService implements LoginInterface
                 'email' => 'required|email',
                 'password' => 'required',
             ]);
-
-            if (Auth::attempt($credentials))  {
+            
+            if (Auth::attempt($credentials, $request->input('remember')))  {
                 return response()->json([
                     'data' => [ 
                         'user' => $request->user()
