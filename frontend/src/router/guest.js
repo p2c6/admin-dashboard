@@ -5,6 +5,10 @@ import Register from '@/components/Register.vue';
 
 export default [
   {
+    path: '/',
+    redirect: { name: 'login' }, 
+  },
+  {
     path: '/guest',
     name: 'guest',
     component: GuestLayout,
