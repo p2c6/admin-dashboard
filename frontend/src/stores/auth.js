@@ -15,6 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
     let updatedCredentials = {
       email: credentials.email_username,
       password: credentials.password,
+      remember: credentials.rememberMe,
       method: method
     };
 
@@ -22,6 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
       updatedCredentials = {
         username: credentials.email_username,
         password: credentials.password,
+        remember: credentials.rememberMe,
         method: method
       };
     }
