@@ -1,13 +1,15 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import apiClient from "../apiClient";
+import useAxios from '@/useAxios';
+import { useRouter } from "vue-router";
+
+const { http } = useAxios();
 
 export const useAuthStore = defineStore('auth', () => {
+    const router = useRouter();
     const user = ref(null);
 
     const login = async (credentials) => {
-        await apiClient.get('/sanctum/csrf-cookie');
-
         const method = credentials.email_username.includes('@') ? 'email' : 'username';
 
         let updatedCredentials = {
@@ -23,16 +25,30 @@ export const useAuthStore = defineStore('auth', () => {
                 method: method
             }
         }
-
-        console.log('formdata' , updatedCredentials);
-
                 
-        const response = await apiClient.post('/api/login', updatedCredentials);
+        const response = await http.post('/api/login', updatedCredentials);
 
-        console.log('resp', response)
+        if (response.status === 200) {
+            const userData = await getUser();
+            user.value = userData
+
+            router.push({name: 'guest'})
+        }
+    }
+
+    const getUser = async() => {
+        try {
+            const { data } = await http.get('/api/user')
+
+            return data;            
+        } catch (error) {
+            console.error('Failed getting user:', error)
+        }
     }
 
     return {
-        login
+        user,
+        login,
+        getUser
     }
 })
