@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import authRoutes from './auth';
 import guestRoutes from './guest';
+import { useAuthStore } from '@/stores/auth';
 
 const routes = [
   ...guestRoutes,
@@ -12,14 +13,16 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  
-  const isAuthenticated = !!localStorage.getItem('authToken'); // Example auth check
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/');
-  } else {
-    next();
-  }
-});
+
+
+// router.beforeEach((to, from, next) => {
+//   const authStore = useAuthStore();
+//   const isAuthenticated = authStore.user;
+
+//   console.log('sAuthenticated', isAuthenticated)
+
+// });
+
+
 
 export default router
