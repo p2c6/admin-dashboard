@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 import authRoutes from './auth';
 import guestRoutes from './guest';
 import { useAuthStore } from '@/stores/auth';
@@ -13,16 +13,20 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore();
 
+  await authStore.getUser();
 
-// router.beforeEach((to, from, next) => {
-//   const authStore = useAuthStore();
-//   const isAuthenticated = authStore.user;
+  if (authStore.user && to.name === 'login') {
+    return next({ name: 'home' });
+  }
 
-//   console.log('sAuthenticated', isAuthenticated)
+  if (to.meta.requiresAuth && !authStore.user) {
+    return next({ name: 'login' });
+  }
 
-// });
+  next();
+});
 
-
-
-export default router
+export default router;
