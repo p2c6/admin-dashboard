@@ -7,7 +7,8 @@ const storeAuth = useAuthStore();
 
 const formData = reactive({
   email_username: '',
-  password: ''
+  password: '',
+  rememberMe: false
 });
 
 
@@ -42,7 +43,7 @@ const formData = reactive({
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
+              <input type="checkbox" id="remember" v-model="formData.rememberMe">
               <label for="remember">
                 Remember Me
               </label>
