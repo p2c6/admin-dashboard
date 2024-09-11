@@ -1,15 +1,17 @@
+// guest.js
 import GuestLayout from '@/components/layouts/GuestLayout.vue';
 import Login from '@/components/Login.vue';
 import Register from '@/components/Register.vue';
 
 export default [
   {
-    path: '/',
+    path: '/guest',
+    name: 'guest',
     component: GuestLayout,
     children: [
       {
         path: '',
-        name: 'Login',
+        name: 'login',
         component: Login,
       },
       {

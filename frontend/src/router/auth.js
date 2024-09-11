@@ -1,11 +1,12 @@
+// auth.js
 import AuthLayout from '@/components/layouts/AuthLayout.vue';
 import HomeView from '@/views/HomeView.vue';
 import PostView from '@/views/PostView.vue';
 import VideosView from '@/views/VideosView.vue';
 
-export default  [
+export default [
   {
-    path: '/',
+    path: '/admin',
     component: AuthLayout,
     children: [
       {
