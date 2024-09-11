@@ -1,6 +1,19 @@
 <script setup>
 import Content from "@/components/Content.vue";
 import Card from "@/components/Card.vue";
+import { onMounted } from "vue";
+import {  useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
+
+const authStore = useAuthStore();
+const router = useRouter();
+
+onMounted(async() => {
+    if (!authStore.user) {
+        router.push({name: 'login'})
+    }
+})
+
 </script>
 
 <template>
