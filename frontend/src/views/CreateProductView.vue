@@ -1,5 +1,5 @@
 <script setup>
-import Content from "@/components/Content.vue";
+import Content from "@/components/reusables/Content.vue";
 import CreateProductForm from "@/components/forms/CreateProductForm.vue";
 import { onMounted } from "vue";
 import {  useAuthStore } from "@/stores/auth";
