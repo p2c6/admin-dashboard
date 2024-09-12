@@ -12,6 +12,7 @@ const formData = reactive({
 });
 
 
+
 </script>
 <template>
 <div class="login-box">
@@ -24,15 +25,19 @@ const formData = reactive({
       <p class="login-box-msg">Sign in to start your session</p>
 
       <form @submit.prevent="storeAuth.login(formData)" method="post">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Email or" v-model="formData.email_username">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Email or Username" v-model="formData.email_username">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
+
+        <p class="text-danger text-xs mt-1" v-if="storeAuth.errors && storeAuth.errors.username">{{ storeAuth.errors.username[0] }}</p>
+        <p class="text-danger text-xs mt-1" v-else-if="storeAuth.errors && storeAuth.errors.email">{{ storeAuth.errors.email[0] }}</p>
+
+        <div class="input-group mt-3">
           <input type="password" class="form-control" placeholder="Password" v-model="formData.password">
           <div class="input-group-append">
             <div class="input-group-text">
@@ -40,6 +45,9 @@ const formData = reactive({
             </div>
           </div>
         </div>
+
+        <p class="text-danger text-xs mt-1" v-if="storeAuth.errors && storeAuth.errors.password">{{ storeAuth.errors.password[0] }}</p>
+
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
@@ -49,13 +57,12 @@ const formData = reactive({
               </label>
             </div>
           </div>
-          <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
-          <!-- /.col -->
         </div>
       </form>
+
 
       
     </div>
