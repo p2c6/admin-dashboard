@@ -35,7 +35,7 @@ const formData = reactive({
         </div>
 
         <p class="text-danger text-xs mt-1" v-if="storeAuth.errors && storeAuth.errors.username">{{ storeAuth.errors.username[0] }}</p>
-        <p class="text-danger text-xs mt-1" v-else-if="storeAuth.errors && storeAuth.errors.email">{{ storeAuth.errors.email[0] }}</p>
+        <p class="text-danger text-xs mt-1" v-if="storeAuth.errors && storeAuth.errors.email">{{ storeAuth.errors.email[0] }}</p>
 
         <div class="input-group mt-3">
           <input type="password" class="form-control" placeholder="Password" v-model="formData.password">
