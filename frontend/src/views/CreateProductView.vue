@@ -1,14 +1,19 @@
 <script setup>
 import Content from "@/components/Content.vue";
 import Card from "@/components/Card.vue";
-import { onMounted } from "vue";
+import { onMounted, reactive } from "vue";
 import {  useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
 import { ref } from 'vue';
 import { QuillEditor } from '@vueup/vue-quill';
-import '@vueup/vue-quill/dist/vue-quill.snow.css'; // Import CSS for Quill theme
+import '@vueup/vue-quill/dist/vue-quill.snow.css'; 
 
-const content = ref(''); // Binding content to the editor
+const formData = reactive({
+  name: '',
+  category: '',
+  description: '',
+  dateAndTime: '',
+})
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -29,15 +34,15 @@ onMounted(async() => {
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form>
+              <form @submit.prevent="">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Name</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter email" v-model="formData.name">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Category</label>
-                    <select class="form-control">
+                    <label for="category">Category</label>
+                    <select class="form-control" id="category">
                         <option value="">Select Category</option>
                         <option value="Gadgets">Gadgets</option>
                         <option value="Appliances">Appliances</option>
@@ -48,7 +53,7 @@ onMounted(async() => {
                   <div class="form-group">
                     <label for="exampleInputPassword1">Description</label>
                       <QuillEditor
-                        v-model="content"
+                        v-model="formData.description"
                         theme="snow"
                         placeholder="Write something awesome..."
                         toolbar="full"
@@ -57,7 +62,7 @@ onMounted(async() => {
                   </div>
                   <div class="form-group">
                     <label for="dateAndTime">Date and Time</label>
-                    <input type="datetime-local" id="dateAndTime" name="dateAndTime" class="form-control">
+                    <input type="datetime-local" id="dateAndTime" name="dateAndTime" class="form-control" v-model="formData.dateAndTime">
                   </div>
                 </div>
                 <!-- /.card-body -->
