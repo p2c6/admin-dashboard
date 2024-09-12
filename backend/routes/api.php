@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\v1\Authentication\LoginController;
+use App\Http\Controllers\API\v1\Authentication\LogoutController;
+use App\Http\Controllers\API\v1\Product\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +17,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('/v1')->name('api.v1')->group(function() {
+
+    //AUTHENTICATION
+    Route::prefix('authentication/')->name('authentication.')->group(function() {
+        Route::post('/login', [LoginController::class, 'login']);
+        Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum');
+    });
+    
+    //AUTHENTICATED USER
+    Route::middleware('auth:sanctum')->group(function() {
+
+        //PRODUCT
+        Route::prefix('product/')->controller(ProductController::class)->name('product.')->group(function() {
+            Route::post('/store', 'store')->name('store');
+        });
+
+        //USER
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
+        
+    });
+
+
 });
 
-Route::post('/login', [LoginController::class, 'login']);
+
