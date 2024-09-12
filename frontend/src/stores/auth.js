@@ -30,7 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     try {
-      const response = await http.post('/api/login', updatedCredentials);
+      const response = await http.post('/authentication/login', updatedCredentials);
 
       if (response.status === 200) {
         errors.value = null
@@ -51,7 +51,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const getUser = async() => {
     try {
-        const { data } = await http.get('/api/user');
+        const { data } = await http.get('/user');
         user.value = data;
     } catch (error) {
         console.log('Error getting user', error)
