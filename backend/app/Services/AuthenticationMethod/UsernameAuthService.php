@@ -4,6 +4,7 @@ namespace App\Services\AuthenticationMethod;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Contracts\LoginInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 
 class UsernameAuthService implements LoginInterface
 {
@@ -27,6 +28,8 @@ class UsernameAuthService implements LoginInterface
                 'message' => 'Invalid credentials.'
             ], 401);
             
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
         } catch (\Throwable $th) {
             info('Username Auth Error: ' . $th->getMessage());
             return response()->json([

@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Contracts\LoginInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 
 class EmailAuthService implements LoginInterface
 {
@@ -29,6 +30,8 @@ class EmailAuthService implements LoginInterface
                 'message' => 'Invalid credentials.'
             ], 401);
             
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
         } catch (\Throwable $th) {
             info('Email Auth Error: ' . $th->getMessage());
             return response()->json([
