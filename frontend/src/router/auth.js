@@ -3,6 +3,7 @@ import AuthLayout from '@/components/layouts/AuthLayout.vue';
 import HomeView from '@/views/HomeView.vue';
 import VideosView from '@/views/VideosView.vue';
 import ProductsView from '@/views/ProductsView.vue';
+import CreateProductView from '@/views/CreateProductView.vue';
 
 export default [
   {
@@ -18,6 +19,11 @@ export default [
         path: 'products',
         name: 'products',
         component: ProductsView,
+      },
+      {
+        path: 'products/create',
+        name: 'products.create',
+        component: CreateProductView,
       },
       {
         path: 'videos',
