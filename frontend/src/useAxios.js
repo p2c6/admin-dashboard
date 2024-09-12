@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const http = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: 'http://localhost:8000/api/v1',
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
   },
@@ -17,7 +17,12 @@ const useAxios = () => {
   http.interceptors.request.use(async (config) => {
     if (config.method === 'post' || config.method === 'put' || config.method === 'patch' || config.method === 'delete') {
       if (!config.headers['X-XSRF-TOKEN']) {
-        await http.get('/sanctum/csrf-cookie');
+        await axios.get('/sanctum/csrf-cookie', {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+          withCredentials: true,
+        });
         
         const token = document.cookie
           .split('; ')
