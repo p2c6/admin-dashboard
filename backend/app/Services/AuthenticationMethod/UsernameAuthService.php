@@ -29,7 +29,7 @@ class UsernameAuthService implements LoginInterface
             ], 401);
             
         } catch (ValidationException $e) {
-            return response()->json(['errors' => $e->errors()], 422);
+            return response()->json(['errors' => ['username' => ['Username or Email is required.']]], 422);
         } catch (\Throwable $th) {
             info('Username Auth Error: ' . $th->getMessage());
             return response()->json([
