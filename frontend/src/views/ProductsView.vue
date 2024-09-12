@@ -19,6 +19,7 @@ onMounted(async() => {
 <template>
     <Content title="Listing of All Post" current="Products">
         <Card>
+            <button class="btn btn-primary mb-2">Create</button>
             <table class="table table-bordered">
                 <thead>
                     <tr>
