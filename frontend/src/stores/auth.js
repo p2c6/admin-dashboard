@@ -8,8 +8,9 @@ const { http } = useAxios();
 export const useAuthStore = defineStore('auth', () => {
   const router = useRouter();
   const user = ref(null); 
+  const errors = ref(null);
 
-  const login = async (credentials) => {
+  const login = async (credentials) => {    
     const method = credentials.email_username.includes('@') ? 'email' : 'username';
 
     let updatedCredentials = {
@@ -32,10 +33,18 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await http.post('/api/login', updatedCredentials);
 
       if (response.status === 200) {
+        errors.value = null
         await getUser();
         router.push({name: 'home'})
       }
+
     } catch (error) {
+
+      if (error.status === 422) {
+        errors.value = error.response.data.errors;
+        return;
+      }
+    
       console.error('Login error:', error);
     }
   };
@@ -53,6 +62,7 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     user,
     login,
-    getUser
+    getUser,
+    errors
   };
 });
