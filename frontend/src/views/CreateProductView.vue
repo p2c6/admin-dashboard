@@ -4,7 +4,11 @@ import Card from "@/components/Card.vue";
 import { onMounted } from "vue";
 import {  useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
-import { QuillEditor } from 'vue-quill-editor';
+import { ref } from 'vue';
+import { QuillEditor } from '@vueup/vue-quill';
+import '@vueup/vue-quill/dist/vue-quill.snow.css'; // Import CSS for Quill theme
+
+const content = ref(''); // Binding content to the editor
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -19,7 +23,7 @@ onMounted(async() => {
 
 <template>
     <Content title="Listing of All Post" current="Products">
-            <div class="card card-primary">
+            <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Create Product</h3>
               </div>
@@ -43,12 +47,13 @@ onMounted(async() => {
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Description</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                  </div>
-                 
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                      <QuillEditor
+                        v-model="content"
+                        theme="snow"
+                        placeholder="Write something awesome..."
+                        toolbar="full"
+                        class="editor-input"
+                      />
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -60,3 +65,10 @@ onMounted(async() => {
             </div>
     </Content>
 </template>
+
+<style scope>
+.editor-input {
+  height: 200px;  /* Custom height */
+  width: 100%;    
+}
+</style>
