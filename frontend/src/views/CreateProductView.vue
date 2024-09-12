@@ -55,6 +55,10 @@ onMounted(async() => {
                         class="editor-input"
                       />
                   </div>
+                  <div class="form-group">
+                    <label for="dateAndTime">Date and Time</label>
+                    <input type="datetime-local" id="dateAndTime" name="dateAndTime" class="form-control">
+                  </div>
                 </div>
                 <!-- /.card-body -->
 
