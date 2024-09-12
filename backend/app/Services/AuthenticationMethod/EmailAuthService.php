@@ -25,7 +25,6 @@ class EmailAuthService implements LoginInterface
                 ], 200); 
             }
 
-
             return response()->json([
                 'message' => 'Invalid credentials.'
             ], 401);
