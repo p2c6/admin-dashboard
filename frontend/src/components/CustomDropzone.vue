@@ -13,7 +13,6 @@ const { http } = useAxios(); // Use your Axios instance
 const productStore = useProductStore();
 
 onMounted(() => {
-  console.log('productStore', productStore.files)
   const myDropzone = new Dropzone(dropzone.value, {
     url: '/uploader/upload', // Use relative URL
     maxFilesize: 2, // 2MB max file size
