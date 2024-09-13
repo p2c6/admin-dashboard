@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/v1')->name('api.v1')->group(function() {
+Route::prefix('/v1')->name('api.v1.')->group(function() {
 
     //AUTHENTICATION
     Route::prefix('authentication/')->name('authentication.')->group(function() {
@@ -29,8 +29,10 @@ Route::prefix('/v1')->name('api.v1')->group(function() {
     Route::middleware('auth:sanctum')->group(function() {
 
         //PRODUCT
-        Route::prefix('product/')->controller(ProductController::class)->name('product.')->group(function() {
-            Route::post('/store', 'store')->name('store');
+        Route::prefix('products')->controller(ProductController::class)->name('product.')->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::put('/{product}', 'update')->name('update');
         });
 
         //USER
