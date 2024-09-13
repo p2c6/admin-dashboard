@@ -1,7 +1,10 @@
 <script setup>
+import { reactive } from 'vue';
+import { useProductStore } from '@/stores/product';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css'; 
-import { reactive } from 'vue';
+
+const productStore = useProductStore();
 
 const formData = reactive({
   name: '',
@@ -19,7 +22,7 @@ const formData = reactive({
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form @submit.prevent="">
+              <form @submit.prevent="productStore.create(formData)">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Name</label>
@@ -27,7 +30,7 @@ const formData = reactive({
                   </div>
                   <div class="form-group">
                     <label for="category">Category</label>
-                    <select class="form-control" id="category">
+                    <select class="form-control" id="category" v-model="formData.category">
                         <option value="">Select Category</option>
                         <option value="Gadgets">Gadgets</option>
                         <option value="Appliances">Appliances</option>
