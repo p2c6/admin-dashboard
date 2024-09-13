@@ -1,19 +1,19 @@
-<template>
-  <div>
-    <form ref="dropzone" class="dropzone" id="my-dropzone"></form>
-  </div>
-</template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import Dropzone from 'dropzone';
 import 'dropzone/dist/dropzone.css'; // Import the Dropzone CSS
 import useAxios from '@/useAxios';
+import { useProductStore } from '@/stores/product';
+
 
 const dropzone = ref(null);
 const { http } = useAxios(); // Use your Axios instance
 
+const productStore = useProductStore();
+
 onMounted(() => {
+  console.log('productStore', productStore.files)
   const myDropzone = new Dropzone(dropzone.value, {
     url: '/uploader/upload', // Use relative URL
     maxFilesize: 2, // 2MB max file size
@@ -34,18 +34,18 @@ onMounted(() => {
 
       this.on("success", function (file, response) {
         console.log("Upload successful:", response);
+        productStore.files.push(response.file_path)
       });
 
       this.on("removedfile", function (file) {
           try {
             const filePath = file.upload.filename;
 
-            // Use Axios to remove the file
             http.post('/uploader/revert', { file_path: filePath })
               .then(response => {
                 console.log('response', response)
                 if (response.data.message) {
-                  console.log('File removed successfully');
+                  productStore.files = productStore.files.filter(item => item !== filePath);
                 }
               })
               .catch(error => {
@@ -62,7 +62,6 @@ onMounted(() => {
           const formData = new FormData();
           formData.append("file", file);
 
-          // Use Axios to upload the file
           http.post('/uploader/upload', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
@@ -70,7 +69,7 @@ onMounted(() => {
           })
           .then(response => {
             file.status = Dropzone.SUCCESS;
-            file.upload.filename = response.data.file_path; // Update with server response
+            file.upload.filename = response.data.file_path; 
             this.emit("success", file, response.data);
           })
           .catch(error => {
@@ -86,6 +85,12 @@ onMounted(() => {
   });
 });
 </script>
+
+<template>
+  <div>
+    <form ref="dropzone" class="dropzone" id="my-dropzone"></form>
+  </div>
+</template>
 
 <style>
 /* Optional: Customize the Dropzone styles */
