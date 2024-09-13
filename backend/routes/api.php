@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\v1\Authentication\LoginController;
 use App\Http\Controllers\API\v1\Authentication\LogoutController;
+use App\Http\Controllers\API\v1\FileUploader\FileUploaderController;
 use App\Http\Controllers\API\v1\Product\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,12 @@ Route::prefix('/v1')->name('api.v1.')->group(function() {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
             Route::put('/{product}', 'update')->name('update');
+        });
+
+        //FILE UPLOADER
+        Route::prefix('uploader')->controller(FileUploaderController::class)->name('uploader.')->group(function() {
+            Route::post('/upload', 'upload')->name('upload');
+            Route::post('/revert', 'revert')->name('revert');
         });
 
         //USER
