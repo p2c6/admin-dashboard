@@ -1,8 +1,8 @@
 <script setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import CustomDropzone from "@/components/CustomDropzone.vue"
+import SummernoteEditor from "@/components/SummernoteEditor.vue"
 import { useProductStore } from '@/stores/product';
-import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css'; 
 
 const productStore = useProductStore();
@@ -41,13 +41,7 @@ const formData = reactive({
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Description</label>
-                      <QuillEditor
-                        v-model="formData.description"
-                        theme="snow"
-                        placeholder="Write something awesome..."
-                        toolbar="full"
-                        class="editor-input"
-                      />
+                    <SummernoteEditor v-model="formData.description" />
                   </div>
                   <div class="form-group">
                     <label for="dateAndTime">Date and Time</label>
@@ -66,10 +60,3 @@ const formData = reactive({
               </form>
             </div>
 </template>
-
-<style scope>
-.editor-input {
-  height: 200px;  /* Custom height */
-  width: 100%;    
-}
-</style>
