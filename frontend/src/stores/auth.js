@@ -59,10 +59,26 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const logout = async () => {    
+    try {
+      const response = await http.post('/authentication/logout');
+
+      if (response.status === 200) {
+        errors.value = null
+        user.value = null
+        router.push({name: 'login'})
+      }
+
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
+
   return {
     user,
+    errors,
     login,
+    logout,
     getUser,
-    errors
   };
 });
