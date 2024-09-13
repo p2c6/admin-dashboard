@@ -10,7 +10,8 @@ export const useProductStore = defineStore('product', () => {
     const errors = ref(null);
     const isLoading = ref(false);
     const message = ref(null);
-    const products = ref(null); 
+    const products = ref(null);
+    const files = ref([]);
 
     const getAllProduct = async() => {
 
@@ -20,8 +21,6 @@ export const useProductStore = defineStore('product', () => {
 
         try {
             const response = await http.get('/products')
-
-            console.log('response', response)
 
             if (response.status == 200) {
                 products.value = response.data;
@@ -36,7 +35,15 @@ export const useProductStore = defineStore('product', () => {
         try {
             isLoading.value = true;
 
-            const response = await http.post('/products', formData);
+            const payload = {
+                name: formData.name,
+                category: formData.category,
+                description: formData.description,
+                dateAndTime: formData.dateAndTime,
+                product_images: files.value
+            }
+
+            const response = await http.post('/products', payload);
 
             if (response.status === 201) {
                 message.value =  response.data.message;
@@ -58,6 +65,7 @@ export const useProductStore = defineStore('product', () => {
     return {
         message,
         products,
+        files,
         create,
         getAllProduct
     }
