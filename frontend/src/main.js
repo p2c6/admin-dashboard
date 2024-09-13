@@ -1,4 +1,5 @@
 import './assets/main.css'
+import 'datatables.net-dt/css/dataTables.dataTables.min.css';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
