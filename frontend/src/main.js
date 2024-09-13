@@ -1,7 +1,5 @@
 import './assets/main.css'
 import 'datatables.net-dt/css/dataTables.dataTables.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Ensure the tooltip and popper are included
-
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
