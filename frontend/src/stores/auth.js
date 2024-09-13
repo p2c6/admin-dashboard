@@ -9,6 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
   const router = useRouter();
   const user = ref(null); 
   const errors = ref(null);
+  const isLoading = ref(false)
 
   const login = async (credentials) => {    
     const method = credentials.email_username.includes('@') ? 'email' : 'username';
@@ -30,6 +31,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     try {
+      isLoading.value = true;
       const response = await http.post('/authentication/login', updatedCredentials);
 
       if (response.status === 200) {
@@ -46,6 +48,8 @@ export const useAuthStore = defineStore('auth', () => {
       }
     
       console.error('Login error:', error);
+    } finally {
+      isLoading.value = false
     }
   };
 
@@ -59,7 +63,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const logout = async () => {    
+  const logout = async () => {
     try {
       const response = await http.post('/authentication/logout');
 
@@ -75,8 +79,15 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   return {
+    /*
+      Variables
+    */ 
     user,
     errors,
+    isLoading,
+    /*
+      Functions
+    */ 
     login,
     logout,
     getUser,
