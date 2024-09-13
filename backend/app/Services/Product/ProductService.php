@@ -12,7 +12,7 @@ class ProductService
             $products = Product::all(['name', 'category', 'description', 'date_and_time']);
 
             return response()->json($products, 200);
-            
+
         } catch(\Throwable $th) {
             info('Error getting product: ' . $th->getMessage());
             return response()->json(['errors' => 'Server Error'], 500);
@@ -24,7 +24,7 @@ class ProductService
             $product = Product::create([
                 'name' => $request->name,
                 'category' => $request->category,
-                'description' => $request->name,
+                'description' => $request->description,
                 'date_and_time' => $request->dateAndTime,
             ]);
 
@@ -45,7 +45,7 @@ class ProductService
             $product->update([
                 'name' => $request->name,
                 'category' => $request->category,
-                'description' => $request->name,
+                'description' => $request->description,
                 'date_and_time' => $request->dateAndTime,
             ]);
 
