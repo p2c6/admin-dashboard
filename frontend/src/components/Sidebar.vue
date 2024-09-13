@@ -1,5 +1,8 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore();
 
 
 </script>
@@ -58,7 +61,7 @@ import { RouterLink } from 'vue-router';
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">John Doe</span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item text-center">
+          <a @click="authStore.logout" class="dropdown-item text-center">
             <i class="fas fa-power-off mr-2"></i> Logout
           </a>
           
