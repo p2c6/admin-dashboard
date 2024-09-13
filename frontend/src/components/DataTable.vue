@@ -15,7 +15,7 @@
                 <button @click="editRow(row)" class="btn btn-primary btn-sm">Edit</button>
               </template>
               <template v-else>
-                {{ row[header.key] }}
+                <span v-html="row[header.key]"></span> <!-- Render HTML content -->
               </template>
             </td>
           </tr>
