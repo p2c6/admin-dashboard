@@ -55,11 +55,15 @@ export const useAuthStore = defineStore('auth', () => {
 
   const getUser = async() => {
     try {
+        isLoading.value = true;
+
         const { data } = await http.get('/user');
         user.value = data;
     } catch (error) {
         console.log('Error getting user', error)
         user.value = null;
+    } finally {
+      isLoading.value = false;
     }
   }
 
