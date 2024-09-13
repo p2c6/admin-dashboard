@@ -11,6 +11,9 @@
   "dependencies": {
     "@vueup/vue-quill": "^1.2.0",
     "axios": "^1.7.7",
+    "datatables.net": "^2.1.6",
+    "datatables.net-dt": "^2.1.6",
+    "datatables.net-vue3": "^3.0.2",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
