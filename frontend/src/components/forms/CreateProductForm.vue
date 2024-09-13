@@ -1,5 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
+import CustomDropzone from "@/components/CustomDropzone.vue"
 import { useProductStore } from '@/stores/product';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css'; 
@@ -51,6 +52,10 @@ const formData = reactive({
                   <div class="form-group">
                     <label for="dateAndTime">Date and Time</label>
                     <input type="datetime-local" id="dateAndTime" name="dateAndTime" class="form-control" v-model="formData.dateAndTime">
+                  </div>
+                  <div class="from-group">
+                    <label for="">File</label>
+                    <CustomDropzone />
                   </div>
                 </div>
                 <!-- /.card-body -->
