@@ -61,10 +61,9 @@ const authStore = useAuthStore();
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">John Doe</span>
           <div class="dropdown-divider"></div>
-          <a @click="authStore.logout" class="dropdown-item text-center">
+          <a @click="authStore.logout" class="dropdown-item text-center" role="button">
             <i class="fas fa-power-off mr-2"></i> Logout
-          </a>
-          
+          </a>          
         </div>
       </li>
       <!-- <li class="nav-item">
