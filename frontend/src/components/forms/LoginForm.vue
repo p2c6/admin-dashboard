@@ -2,7 +2,7 @@
 import { useAuthStore } from "@/stores/auth";
 import { reactive } from 'vue';
 
-const storeAuth = useAuthStore();
+const authStore = useAuthStore();
 
 const formData = reactive({
   email_username: '',
@@ -23,7 +23,7 @@ const formData = reactive({
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form @submit.prevent="storeAuth.login(formData)" method="post">
+      <form @submit.prevent="authStore.login(formData)" method="post">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Email or Username" v-model="formData.email_username">
           <div class="input-group-append">
@@ -33,8 +33,8 @@ const formData = reactive({
           </div>
         </div>
 
-        <p class="text-danger text-xs mt-1" v-if="storeAuth.errors && storeAuth.errors.username">{{ storeAuth.errors.username[0] }}</p>
-        <p class="text-danger text-xs mt-1" v-if="storeAuth.errors && storeAuth.errors.email">{{ storeAuth.errors.email[0] }}</p>
+        <p class="text-danger text-xs mt-1" v-if="authStore.errors && authStore.errors.username">{{ authStore.errors.username[0] }}</p>
+        <p class="text-danger text-xs mt-1" v-if="authStore.errors && authStore.errors.email">{{ authStore.errors.email[0] }}</p>
 
         <div class="input-group mt-3">
           <input type="password" class="form-control" placeholder="Password" v-model="formData.password">
@@ -45,10 +45,10 @@ const formData = reactive({
           </div>
         </div>
 
-        <p class="text-danger text-xs mt-1" v-if="storeAuth.errors && storeAuth.errors.password">{{ storeAuth.errors.password[0] }}</p>
+        <p class="text-danger text-xs mt-1" v-if="authStore.errors && authStore.errors.password">{{ authStore.errors.password[0] }}</p>
 
-        <div class="row">
-          <div class="col-8">
+        <div class="row mt-4">
+          <div class="col-7">
             <div class="icheck-primary">
               <input type="checkbox" id="remember" v-model="formData.rememberMe">
               <label for="remember">
@@ -56,8 +56,13 @@ const formData = reactive({
               </label>
             </div>
           </div>
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          <div class="col-5">
+            <button v-if="authStore.isLoading" class="btn btn-primary disabled d-flex">
+              <div class="spinner-border spinner-border-sm mr-2" role="status"></div>
+              Loading...
+            </button>
+
+            <button v-else type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
         </div>
       </form>
