@@ -9,9 +9,10 @@
   import { onMounted, ref, defineEmits } from 'vue';
   import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Ensure the tooltip and popper are included
   import $ from 'jquery';
-  import 'bootstrap/dist/css/bootstrap.min.css';
   import 'summernote/dist/summernote-bs5.css';
   import 'summernote/dist/summernote-bs5';
+  import 'bootstrap/dist/css/bootstrap.min.css';
+
   
   // Define emit
   const emit = defineEmits(['update:modelValue']);
@@ -21,6 +22,7 @@
   onMounted(() => {
     $(editor.value).summernote({
       height: 200,
+      tooltip: false,
       toolbar: [
         ['style', ['style', 'bold', 'italic', 'underline', 'clear', 'strikethrough']],
 
