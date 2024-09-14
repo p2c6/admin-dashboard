@@ -31,7 +31,7 @@ export const useProductStore = defineStore('product', () => {
         }
     }
 
-    const create = async(formData) => {
+    const createProduct = async(formData) => {
         try {
             isLoading.value = true;
 
@@ -66,7 +66,8 @@ export const useProductStore = defineStore('product', () => {
         message,
         products,
         files,
-        create,
+        errors,
+        createProduct,
         getAllProduct
     }
 })
