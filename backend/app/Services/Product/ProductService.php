@@ -34,7 +34,7 @@ class ProductService
                 'name' => $request->name,
                 'category' => $request->category,
                 'description' => $request->description,
-                'date_and_time' => $request->dateAndTime,
+                'date_and_time' => empty($request->dateAndTime) ? null : $request->dateAndTime,
             ]);
 
             $productId = $product->id;
