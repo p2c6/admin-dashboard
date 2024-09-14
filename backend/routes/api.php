@@ -32,6 +32,7 @@ Route::prefix('/v1')->name('api.v1.')->group(function() {
         //PRODUCT
         Route::prefix('products')->controller(ProductController::class)->name('product.')->group(function() {
             Route::get('/', 'index')->name('index');
+            Route::get('/{id}', 'show')->name('show');
             Route::post('/', 'store')->name('store');
             Route::put('/{product}', 'update')->name('update');
         });
