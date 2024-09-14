@@ -27,6 +27,23 @@ class ProductService
             return response()->json(['errors' => 'Server Error'], 500);
         }
     }
+
+    public function show($id)
+    {
+        try {
+            $product = Product::with('images')
+                        ->where('id', $id)
+                        ->select('name', 'category', 'description', 'date_and_time')
+                        ->get('');
+
+            return response()->json($product, 200);
+
+        } catch(\Throwable $th) {
+            info('Error getting product: ' . $th->getMessage());
+            return response()->json(['errors' => 'Server Error'], 500);
+        }
+    }
+
     public function store($request)
     {
         try {
