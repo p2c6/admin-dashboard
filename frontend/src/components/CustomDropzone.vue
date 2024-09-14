@@ -32,7 +32,6 @@ onMounted(() => {
       });
 
       this.on("success", function (file, response) {
-        console.log("Upload successful:", response);
         productStore.files.push(response.file_path)
       });
 
@@ -42,7 +41,6 @@ onMounted(() => {
 
             http.post('/uploader/revert', { file_path: filePath })
               .then(response => {
-                console.log('response', response)
                 if (response.data.message) {
                   productStore.files = productStore.files.filter(item => item !== filePath);
                 }
