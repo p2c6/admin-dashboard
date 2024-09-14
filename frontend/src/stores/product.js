@@ -40,7 +40,7 @@ export const useProductStore = defineStore('product', () => {
                 category: formData.category,
                 description: formData.description,
                 dateAndTime: formData.dateAndTime,
-                product_images: files.value
+                product_image: files.value
             }
 
             const response = await http.post('/products', payload);
