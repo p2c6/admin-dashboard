@@ -34,7 +34,7 @@ class ProductService
             $product = Product::with('images')
                         ->where('id', $id)
                         ->select('name', 'category', 'description', 'date_and_time')
-                        ->get('');
+                        ->first();
 
             return response()->json($product, 200);
 
