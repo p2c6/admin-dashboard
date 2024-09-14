@@ -4,7 +4,7 @@
         <thead>
           <tr>
             <th v-for="(header, index) in headers" :key="index">
-              {{ header.label }} <!-- Display the header label -->
+              {{ header.label }} 
             </th>
           </tr>
         </thead>
@@ -15,7 +15,7 @@
                 <button @click="editRow(row)" class="btn btn-primary btn-sm">Edit</button>
               </template>
               <template v-else>
-                <span v-html="row[header.key]"></span> <!-- Render HTML content -->
+                <span v-html="row[header.key]"></span> 
               </template>
             </td>
           </tr>
