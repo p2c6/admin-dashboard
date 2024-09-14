@@ -4,6 +4,7 @@ import HomeView from '@/views/HomeView.vue';
 import VideosView from '@/views/VideosView.vue';
 import ProductsView from '@/views/ProductsView.vue';
 import CreateProductView from '@/views/CreateProductView.vue';
+import UpdateProductView from '@/views/UpdateProductView.vue';
 
 export default [
   {
@@ -24,6 +25,11 @@ export default [
         path: 'products/create',
         name: 'products.create',
         component: CreateProductView,
+      },
+      {
+        path: 'products/update/:id',
+        name: 'products.update',
+        component: UpdateProductView,
       },
       {
         path: 'videos',
