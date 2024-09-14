@@ -2,10 +2,19 @@
 namespace App\Services\Product;
 
 use App\Models\Product;
+use App\Models\ProductImage;
+use App\Services\FileUploader\FileUploaderService;
 use Illuminate\Validation\ValidationException;
 
 class ProductService 
 {
+    private $service;
+
+    public function __construct(FileUploaderService $service)
+    {
+        $this->service = $service;
+    }
+    
     public function index()
     {
         try {
@@ -27,6 +36,24 @@ class ProductService
                 'description' => $request->description,
                 'date_and_time' => $request->dateAndTime,
             ]);
+
+            $productId = $product->id;
+
+            if (is_array($request->product_images)) {
+
+                foreach ($request->product_images as $image) {
+
+                    $productImage = $this->service->saveFile($productId, $image);
+
+                    if (!empty($productImage) || $productImage !== '') {
+                        ProductImage::create([
+                            'product_id' => $productId,
+                            'file_path' => $productImage
+                        ]);
+                    }
+                }
+
+            }
 
             return response()->json(['message' => 'Product successfully created.'], 201);
             
