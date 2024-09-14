@@ -18,7 +18,7 @@ class ProductService
     public function index()
     {
         try {
-            $products = Product::all(['name', 'category', 'description', 'date_and_time']);
+            $products = Product::all(['id', 'name', 'category', 'description', 'date_and_time']);
 
             return response()->json($products, 200);
 
@@ -33,7 +33,7 @@ class ProductService
         try {
             $product = Product::with('images')
                         ->where('id', $id)
-                        ->select('name', 'category', 'description', 'date_and_time')
+                        ->select('id', 'name', 'category', 'description', 'date_and_time')
                         ->first();
 
             return response()->json($product, 200);
