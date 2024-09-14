@@ -22,12 +22,14 @@ const formData = reactive({
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form @submit.prevent="productStore.create(formData)">
+              <form @submit.prevent="productStore.createProduct(formData)">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" placeholder="Enter email" v-model="formData.name">
                   </div>
+                  <p class="text-danger text-xs mt-1" v-if="productStore.errors && productStore.errors.name">{{ productStore.errors.name[0] }}</p>
+
                   <div class="form-group">
                     <label for="category">Category</label>
                     <select class="form-control" id="category" v-model="formData.category">
@@ -38,18 +40,24 @@ const formData = reactive({
                         <option value="Clothes">Clothes</option>
                     </select>
                   </div>
+
+                  <p class="text-danger text-xs mt-1" v-if="productStore.errors && productStore.errors.category">{{ productStore.errors.category[0] }}</p>
+
                   <div class="form-group">
                     <label for="exampleInputPassword1">Description</label>
                     <SummernoteEditor v-model="formData.description" />
                   </div>
+
                   <div class="form-group">
                     <label for="dateAndTime">Date and Time</label>
                     <input type="datetime-local" id="dateAndTime" name="dateAndTime" class="form-control" v-model="formData.dateAndTime">
                   </div>
-                  <div class="from-group">
-                    <label for="">File</label>
+                  <div class="form-group">
+                    <label for="">Image</label>
                     <CustomDropzone />
                   </div>
+
+                  <p class="text-danger text-xs mt-1" v-if="productStore.errors && productStore.errors.product_image">{{ productStore.errors.product_image[0] }}</p>
                 </div>
                 <!-- /.card-body -->
 
