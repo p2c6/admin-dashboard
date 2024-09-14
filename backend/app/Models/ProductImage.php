@@ -11,8 +11,7 @@ class ProductImage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'original_name',
-        'file_name',
+        'product_id',
         'file_path',
     ];
 
