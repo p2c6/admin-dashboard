@@ -3,7 +3,6 @@ import { reactive, ref } from 'vue';
 import CustomDropzone from "@/components/CustomDropzone.vue"
 import SummernoteEditor from "@/components/SummernoteEditor.vue"
 import { useProductStore } from '@/stores/product';
-import '@vueup/vue-quill/dist/vue-quill.snow.css'; 
 
 const productStore = useProductStore();
 
