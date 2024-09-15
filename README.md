@@ -18,7 +18,7 @@ cd frontend
 
 ## For Front End Setup
 
-After going to admin-dashboard directory, run the command below to install packages:
+After going to **frontend** directory, run the command below to install packages:
 
 ```sh
 npm install
