@@ -10,10 +10,12 @@ After cloning the repository,go to the **admin-dashboard** directory:
 cd admin-dashboard
 ```
 
-Then setup the **frontend** and **backend**.
+After you go to **admin-dashboard** directory, setup the **frontend** and **backend**.
 
 
 ## Setup Frontend
+
+**Note:**Make sure you're inside the **admin-dashboard** directory
 
 Go to **frontend** directory:
 
@@ -36,6 +38,8 @@ npm run dev
 After setting up frontend, you can check the frontend app which runs on **http://localhost:3000**
 
 ## Setup Backend
+
+**Note:** Make sure you're inside the **admin-dashboard** directory 
 
 Go to **backend** directory:
 
