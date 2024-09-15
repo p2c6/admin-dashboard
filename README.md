@@ -33,6 +33,8 @@ After installing packages, run your **frontend** with the command below:
 npm run dev
 ```
 
+After setting up, you can check the frontend app which runs on **http://localhost:3000**
+
 ## Setup Backend
 
 Go to **backend** directory:
