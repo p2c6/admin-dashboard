@@ -4,6 +4,7 @@ namespace App\Services\Product;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Services\FileUploader\FileUploaderService;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class ProductService 
@@ -36,7 +37,24 @@ class ProductService
                         ->select('id', 'name', 'category', 'description', 'date_and_time')
                         ->first();
 
-            return response()->json($product, 200);
+            $images = $product->images;
+
+            $imagesURL = [];
+
+            foreach ($images as $image) {
+                array_push($imagesURL, url('/storage/'. $image->file_path));
+            }
+
+            $productAndImage = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'category' => $product->category,
+                'description' => $product->description,
+                'date_and_time' => $product->date_and_time,
+                'images' => $imagesURL
+            ];
+
+            return response()->json($productAndImage, 200);
 
         } catch(\Throwable $th) {
             info('Error getting product: ' . $th->getMessage());
@@ -56,9 +74,9 @@ class ProductService
 
             $productId = $product->id;
 
-            if (is_array($request->product_images)) {
+            if (is_array($request->product_image)) {
 
-                foreach ($request->product_images as $image) {
+                foreach ($request->product_image as $image) {
 
                     $productImage = $this->service->saveFile($productId, $image);
 
@@ -92,6 +110,56 @@ class ProductService
                 'description' => $request->description,
                 'date_and_time' => $request->dateAndTime,
             ]);
+
+            $productId = $product->id;
+
+            $productImages = $product->images;
+
+            $images = $productImages->pluck('file_path')->toArray();
+
+            $uploadedFiles = [];
+
+            if (is_array($request->product_image)) {
+                
+                foreach ($request->product_image as $image) {
+                
+                    if (str_contains($image, 'storage') !== true) {
+
+                        $productImage = $this->service->saveFile($productId, $image);
+
+                        if (!empty($productImage) || $productImage !== '') {
+                            ProductImage::create([
+                                'product_id' => $productId,
+                                'file_path' => $productImage
+                            ]);
+
+                            $uploadedFiles[] = $productImage;
+                        }
+
+                    } else {
+
+                        $path = explode("/storage/", $image);
+
+                        $existingFile = $path[1];
+
+                        $uploadedFiles[] = $existingFile;
+                        
+                    }
+
+                }
+
+                $allFiles = array_diff($images, $uploadedFiles);
+
+                foreach ($allFiles as $file) {
+                    if (Storage::disk('public')->exists($file)) {
+                        Storage::disk('public')->delete($file);
+                    }
+                }
+
+                ProductImage::whereNotIn('file_path', $uploadedFiles)
+                            ->where('product_id', $productId)->delete();
+
+            }
 
             return response()->json(['message' => 'Product successfully updated.'], 200);
 
