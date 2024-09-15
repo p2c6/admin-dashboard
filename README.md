@@ -10,13 +10,15 @@ After cloning the repository,go to the **admin-dashboard** directory:
 cd admin-dashboard
 ```
 
-Then go to **frontend** directory:
+Then setup the frontend and backend
+
+## Setup Frontend
+
+Go to **frontend** directory:
 
 ```sh
 cd frontend
 ```
-
-## For Front End Setup
 
 After going to **frontend** directory, run the command below to install packages:
 
