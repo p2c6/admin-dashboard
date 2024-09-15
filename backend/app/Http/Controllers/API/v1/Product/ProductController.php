@@ -36,4 +36,9 @@ class ProductController extends Controller
     {
         return $this->service->update($request, $product);
     }
+
+    public function delete(Product $product)
+    {
+        return $this->service->delete($product);
+    }
 }
