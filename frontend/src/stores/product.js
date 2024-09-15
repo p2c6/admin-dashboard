@@ -31,6 +31,19 @@ export const useProductStore = defineStore('product', () => {
         }
     }
 
+    const getProduct = async(id) => {
+        try {
+            const response = await http.get(`/products/${id}`)
+
+            if (response.status == 200) {
+                console.log('resppp', response.data)
+                return response.data
+            }
+        } catch (error) {
+            
+        }
+    }
+
     const createProduct = async(formData) => {
         try {
             isLoading.value = true;
@@ -62,12 +75,45 @@ export const useProductStore = defineStore('product', () => {
         }
     }
 
+    const updateProduct = async(formData) => {
+        try {
+            isLoading.value = true;
+
+            const payload = {
+                name: formData.name,
+                category: formData.category,
+                description: formData.description,
+                dateAndTime: formData.dateAndTime,
+                product_image: files.value
+            }
+
+            const response = await http.put(`/products/${formData.id}`, payload);
+
+            if (response.status === 200) {
+                message.value =  response.data.message;
+                products.value = null;
+                router.push({name: 'products'});
+            }
+        } catch (error) {
+            if (error.status === 422) {
+                errors.value = error.response.data.errors;
+                return;
+            }
+            
+            console.error('Create product error:', error);
+        } finally {
+            isLoading.value = false;
+        }
+    }
+
     return {
         message,
         products,
         files,
         errors,
         createProduct,
-        getAllProduct
+        getAllProduct,
+        updateProduct,
+        getProduct
     }
 })
