@@ -35,6 +35,7 @@ Route::prefix('/v1')->name('api.v1.')->group(function() {
             Route::get('/{id}', 'show')->name('show');
             Route::post('/', 'store')->name('store');
             Route::put('/{product}', 'update')->name('update');
+            Route::delete('/{product}', 'delete')->name('delete');
         });
 
         //FILE UPLOADER
