@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import CustomDropzone from "@/components/CustomDropzone.vue"
 import SummernoteEditor from "@/components/SummernoteEditor.vue"
 import { useProductStore } from '@/stores/product';
@@ -12,6 +12,10 @@ const formData = reactive({
   description: '',
   dateAndTime: '',
 })
+
+onMounted(() => {
+  productStore.errors = null;
+});
 
 </script>
 
