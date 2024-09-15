@@ -44,7 +44,7 @@ const handleDeleteRow = async (row) => {
 
 <template>
     <div class="container mt-4">
-      <table ref="dataTable" class="display table table-bordered table-striped">
+      <table ref="dataTable" class="display table table-bordered table-striped table-responsive">
         <thead>
           <tr>
             <th v-for="(header, index) in headers" :key="index">
