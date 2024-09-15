@@ -10,7 +10,8 @@ After cloning the repository,go to the **admin-dashboard** directory:
 cd admin-dashboard
 ```
 
-Then setup the frontend and backend
+Then setup the **frontend** and **backend**.
+
 
 ## Setup Frontend
 
