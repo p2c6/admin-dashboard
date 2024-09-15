@@ -59,7 +59,7 @@ const authStore = useAuthStore();
           <i class="far fa-user"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">John Doe</span>
+          <span class="dropdown-item dropdown-header">{{ authStore.user.name }}</span>
           <div class="dropdown-divider"></div>
           <a @click="authStore.logout" class="dropdown-item text-center" role="button">
             <i class="fas fa-power-off mr-2"></i> Logout
@@ -96,7 +96,7 @@ const authStore = useAuthStore();
           <img src="../../adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block text-decoration-none">Alexander Pierce</a>
+          <a href="#" class="d-block text-decoration-none">{{ authStore.user.name }}</a>
         </div>
       </div>
 
