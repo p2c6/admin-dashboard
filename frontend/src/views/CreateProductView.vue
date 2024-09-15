@@ -17,7 +17,7 @@ onMounted(async() => {
 </script>
 
 <template>
-    <Content title="Listing of All Post" current="Products">
+    <Content title="Create Product" current="Products">
       <CreateProductForm />
     </Content>
 </template>
