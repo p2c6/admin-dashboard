@@ -15,7 +15,7 @@ Once you're in the **admin-dashboard** directory, setup the **frontend** and **b
 
 ## Setup Frontend
 
-**Note:**Make sure you're inside the **admin-dashboard** directory
+**Note:** Make sure you're inside the **admin-dashboard** directory
 
 Go to **frontend** directory:
 
