@@ -4,13 +4,13 @@ Go to your terminal and clone the repository:
 git clone https://github.com/p2c6/admin-dashboard.git
 ```
 
-Then go to the **admin-dashboard** directory:
+After cloning the repository,go to the **admin-dashboard** directory:
 
 ```sh
 cd admin-dashboard
 ```
 
-After cloning repository go to **frontend** directory:
+Then go to **frontend** directory:
 
 ```sh
 cd frontend
