@@ -49,6 +49,11 @@ watch(productStore.message, (newValue, oldValue) => {
     console.log('newValue: ' + newValue + " oldvalue: " + oldValue)
 })
 
+const handleCloseMessageClick = () => {
+    $(".alert").alert('close')
+    productStore.message = null;
+}
+
 </script>
 
 <template>
@@ -58,7 +63,7 @@ watch(productStore.message, (newValue, oldValue) => {
         </RouterLink>
         <div v-if="productStore.message" class="alert alert-success alert-dismissible fade show" role="alert">
             {{ productStore.message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <button type="button" class="close" @click.prevent="handleCloseMessageClick">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
