@@ -80,7 +80,7 @@ After setting up .env, link the storage with the command below:
 php artisan storage:link
 ```
 
-**Note:** Before running the migration and the seeder, please make sure you created your empty database  in your database administration tools like **phpMyAdmin**. Also, make sure the name of your database is the same with your ```.env ``` file.
+**Note:** Before running the migration and the seeder, please make sure you created your empty database  in your database administration tools like **phpMyAdmin**. Also, make sure the name of your database is the same with your **.env** file.
 
 Run the migration and the seeder:
 
