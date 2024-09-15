@@ -14,6 +14,7 @@ export const useProductStore = defineStore('product', () => {
     const files = ref([]);
 
     const getAllProduct = async() => {
+        isLoading.value = true;
 
         if (products.value) {
             return products.value;
@@ -27,7 +28,9 @@ export const useProductStore = defineStore('product', () => {
                 return products.value;
             }
         } catch (error) {
-            
+            console.log('Error getting all product', error);
+        } finally {
+            isLoading.value = false;
         }
     }
 
@@ -61,7 +64,7 @@ export const useProductStore = defineStore('product', () => {
             if (response.status === 201) {
                 message.value =  response.data.message;
                 products.value = null;
-                router.push({name: 'products'});
+                router.push({name: 'products', query: {message: response.data.message}});
             }
         } catch (error) {
             if (error.status === 422) {
@@ -92,7 +95,7 @@ export const useProductStore = defineStore('product', () => {
             if (response.status === 200) {
                 message.value =  response.data.message;
                 products.value = null;
-                router.push({name: 'products'});
+                router.push({name: 'products', query: {message: response.data.message}});
             }
         } catch (error) {
             if (error.status === 422) {
@@ -100,7 +103,30 @@ export const useProductStore = defineStore('product', () => {
                 return;
             }
             
-            console.error('Create product error:', error);
+            console.error('Updating product error:', error);
+        } finally {
+            isLoading.value = false;
+        }
+    }
+
+    const deleteProduct = async(id) => {
+        try {
+            isLoading.value = true;
+
+            const response = await http.delete(`/products/${id}`);
+
+            if (response.status === 200) {
+                message.value =  response.data.message;
+                products.value = null;
+                router.push({name: 'products', query: {message: response.data.message}});
+            }
+        } catch (error) {
+            if (error.status === 422) {
+                errors.value = error.response.data.errors;
+                return;
+            }
+            
+            console.error('Deleting product error:', error);
         } finally {
             isLoading.value = false;
         }
@@ -111,9 +137,11 @@ export const useProductStore = defineStore('product', () => {
         products,
         files,
         errors,
+        isLoading,
         createProduct,
         getAllProduct,
         updateProduct,
-        getProduct
+        getProduct,
+        deleteProduct
     }
 })
