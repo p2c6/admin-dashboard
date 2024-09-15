@@ -33,7 +33,7 @@ After installing packages, run your **frontend** with the command below:
 npm run dev
 ```
 
-After setting up, you can check the frontend app which runs on **http://localhost:3000**
+After setting up frontend, you can check the frontend app which runs on **http://localhost:3000**
 
 ## Setup Backend
 
@@ -91,6 +91,8 @@ Lastly, run the server with the command below:
 ```sh
 php artisan serve
 ```
+
+After backend setup, you can check the backend which runs on **http://localhost:8000**
 
 ## Note
 
