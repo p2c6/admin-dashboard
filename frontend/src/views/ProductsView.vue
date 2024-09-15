@@ -14,7 +14,6 @@ const productStore = useProductStore();
 const router = useRouter();
 
 const headers = ref([
-  { label: 'ID', key: 'id' },
   { label: 'Name', key: 'name' },
   { label: 'Category', key: 'category' },
   { label: 'Description', key: 'description' },
