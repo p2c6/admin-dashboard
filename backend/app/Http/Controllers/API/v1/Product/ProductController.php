@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API\v1\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Services\Product\ProductService;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -32,7 +32,7 @@ class ProductController extends Controller
         return $this->service->store($request);
     }
 
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         return $this->service->update($request, $product);
     }
