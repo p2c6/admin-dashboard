@@ -4,12 +4,16 @@ import Content from "@/components/reusables/Content.vue";
 import Card from "@/components/reusables/Card.vue";
 import { onMounted,  } from "vue";
 import {  useAuthStore } from "@/stores/auth";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useProductStore } from "@/stores/product";
 import DataTable from '@/components/DataTable.vue';
 
 const authStore = useAuthStore();
 const productStore = useProductStore();
+
+const route = useRoute();
+
+const message = route.query.message;
 
 const router = useRouter();
 
@@ -37,6 +41,14 @@ onMounted(async() => {
     }
 })
 
+const deleteRow = async(rowToDelete) => {
+  const confirmation = confirm(`Are you sure you want to delete ${rowToDelete.name}?`);
+  if (confirmation) {
+    await productStore.deleteProduct(rowToDelete.id);
+    rows.value = await productStore.getAllProduct();
+  }
+}
+
 </script>
 
 <template>
@@ -44,18 +56,21 @@ onMounted(async() => {
         <RouterLink :to="{name: 'products.create'}">
                 <a class="btn btn-primary mb-2">Create</a>
         </RouterLink>
-        <div v-if="productStore.message" class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ productStore.message }}
+        <div v-if="message" class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <Card>
-            <div v-if="rows.length === 0" class="d-flex justify-content-center align-items-center">
+            <div v-if="productStore.isLoading && rows.length === 0" class="d-flex justify-content-center align-items-center">
                 <div class="spinner-border spinner-border-sm mr-2 text-primary" role="status"></div>
               <span class="text-primary">Loading...</span>
             </div>
-            <DataTable v-else :headers="headers" :rows="rows" />
+            <DataTable v-else-if="!productStore.isLoading && rows.length > 0" :headers="headers" :rows="rows" @delete-row="deleteRow" />
+            <div v-else>
+                <p class="d-flex justify-content-center align-items-center mt-5">No data found.</p>
+            </div>
         </Card>
     </Content>
 </template>
