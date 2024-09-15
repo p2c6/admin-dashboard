@@ -35,7 +35,7 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-  productStore.files = null;
+  productStore.files = [];
 })
 
 </script>

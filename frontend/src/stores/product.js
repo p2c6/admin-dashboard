@@ -64,6 +64,7 @@ export const useProductStore = defineStore('product', () => {
             if (response.status === 201) {
                 message.value =  response.data.message;
                 products.value = null;
+                files.value = []
                 router.push({name: 'products'});
             }
         } catch (error) {
@@ -95,6 +96,7 @@ export const useProductStore = defineStore('product', () => {
             if (response.status === 200) {
                 message.value =  response.data.message;
                 products.value = null;
+                files.value = []
                 router.push({name: 'products'});
             }
         } catch (error) {

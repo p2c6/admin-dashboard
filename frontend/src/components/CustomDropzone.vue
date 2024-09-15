@@ -24,6 +24,7 @@ onMounted( async() => {
     addRemoveLinks: true,
     dictRemoveFile: "Remove file",
     dictDefaultMessage: "Drop files here to upload",
+    parallelUploads: 9999,
 
     init: async function () {
 
@@ -101,6 +102,7 @@ onMounted( async() => {
             this.emit("success", file, response.data);
           })
           .catch(error => {
+            console.log('error ', error)
             file.status = Dropzone.ERROR;
             this.emit("error", file, error.response.data);
           })
