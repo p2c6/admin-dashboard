@@ -27,7 +27,7 @@ After going to **frontend** directory, run the command below to install packages
 npm install
 ```
 
-## Compile and Hot-Reload for Development
+# Compile and Hot-Reload for Development
 
 After installing packages, run your frontend with the command below:
 
