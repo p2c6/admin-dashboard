@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import Content from "@/components/reusables/Content.vue";
 import Card from "@/components/reusables/Card.vue";
 import { onMounted,  } from "vue";
@@ -10,10 +10,6 @@ import DataTable from '@/components/DataTable.vue';
 
 const authStore = useAuthStore();
 const productStore = useProductStore();
-
-const route = useRoute();
-
-const message = route.query.message;
 
 const router = useRouter();
 
@@ -49,6 +45,10 @@ const deleteRow = async(rowToDelete) => {
   }
 }
 
+watch(productStore.message, (newValue, oldValue) => {
+    console.log('newValue: ' + newValue + " oldvalue: " + oldValue)
+})
+
 </script>
 
 <template>
@@ -56,8 +56,8 @@ const deleteRow = async(rowToDelete) => {
         <RouterLink :to="{name: 'products.create'}">
                 <a class="btn btn-primary mb-2">Create</a>
         </RouterLink>
-        <div v-if="message" class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ message }}
+        <div v-if="productStore.message" class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ productStore.message }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

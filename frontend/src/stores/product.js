@@ -64,7 +64,7 @@ export const useProductStore = defineStore('product', () => {
             if (response.status === 201) {
                 message.value =  response.data.message;
                 products.value = null;
-                router.push({name: 'products', query: {message: response.data.message}});
+                router.push({name: 'products'});
             }
         } catch (error) {
             if (error.status === 422) {
@@ -95,7 +95,7 @@ export const useProductStore = defineStore('product', () => {
             if (response.status === 200) {
                 message.value =  response.data.message;
                 products.value = null;
-                router.push({name: 'products', query: {message: response.data.message}});
+                router.push({name: 'products'});
             }
         } catch (error) {
             if (error.status === 422) {
@@ -118,7 +118,9 @@ export const useProductStore = defineStore('product', () => {
             if (response.status === 200) {
                 message.value =  response.data.message;
                 products.value = null;
-                router.push({name: 'products', query: {message: response.data.message}});
+                router.push({name: 'products'});
+
+                return true;
             }
         } catch (error) {
             if (error.status === 422) {
