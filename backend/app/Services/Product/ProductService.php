@@ -171,4 +171,26 @@ class ProductService
             return response()->json(['errors' => 'Server Error'], 500);
         }
     }
+
+    public function delete($product)
+    {
+        try {
+            $directory = 'uploads/products/'. $product->id;
+
+            info($directory);
+    
+            if (Storage::disk('public')->exists($directory)) {
+                Storage::disk('public')->deleteDirectory($directory);
+                $product->images()->delete();
+            }
+    
+            $product->delete();
+
+            return response()->json(['message' => 'Product successfully deleted.'], 200);
+
+        }  catch (\Throwable $th) {
+            info('Error deleting Product: ' . $th->getMessage());
+            return response()->json(['errors' => 'Server Error'], 500);
+        }
+    }
 }
