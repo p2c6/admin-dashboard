@@ -1,10 +1,10 @@
 <template>
     <div class="container mt-4">
-      <table ref="dataTable" class="display table table-bordered table-striped table-responsive">
+      <table ref="dataTable" class="display table table-bordered table-striped">
         <thead>
           <tr>
             <th v-for="(header, index) in headers" :key="index">
-              {{ header.label }} 
+              {{ header.label }} <!-- Display the header label -->
             </th>
           </tr>
         </thead>
@@ -15,7 +15,7 @@
                 <button @click="editRow(row)" class="btn btn-primary btn-sm">Edit</button>
               </template>
               <template v-else>
-                <span v-html="row[header.key]"></span> 
+                <span v-html="row[header.key]"></span> <!-- Render HTML content -->
               </template>
             </td>
           </tr>
@@ -28,6 +28,9 @@
   import { onMounted, ref } from 'vue';
   import $ from 'jquery';
   import 'datatables.net';
+  import { useRouter } from 'vue-router';
+  
+  const router = useRouter();
   
   const props = defineProps({
     headers: {
@@ -51,22 +54,16 @@
     });
   });
   
-  // Define methods for Edit and Delete
   const editRow = (row) => {
-    alert(`Editing row: ${JSON.stringify(row)}`);
-    // Add your logic for editing here
+    router.push({name: 'products.update', params: {id: row.id}})
   };
   
   const deleteRow = (row) => {
     const confirmation = confirm(`Are you sure you want to delete ${row.name}?`);
     if (confirmation) {
-      // Add your logic for deleting here
       alert(`Deleted row: ${row.name}`);
     }
   };
   </script>
-  
-  <style scoped>
-  /* Custom styling if needed */
-  </style>
+
   
