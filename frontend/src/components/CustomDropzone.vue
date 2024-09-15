@@ -1,27 +1,51 @@
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import Dropzone from 'dropzone';
-import 'dropzone/dist/dropzone.css'; // Import the Dropzone CSS
+import 'dropzone/dist/dropzone.css'; 
 import useAxios from '@/useAxios';
 import { useProductStore } from '@/stores/product';
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
+
+const id = route.params.id;
 
 const dropzone = ref(null);
-const { http } = useAxios(); // Use your Axios instance
+const { http } = useAxios();
 
 const productStore = useProductStore();
 
-onMounted(() => {
+onMounted( async() => {
   const myDropzone = new Dropzone(dropzone.value, {
-    url: '/uploader/upload', // Use relative URL
-    maxFilesize: 2, // 2MB max file size
+    url: '/uploader/upload',
+    maxFilesize: 2,
     acceptedFiles: ".jpg,.png,.gif",
     addRemoveLinks: true,
     dictRemoveFile: "Remove file",
     dictDefaultMessage: "Drop files here to upload",
 
-    init: function () {
+    init: async function () {
+
+      if(id) {
+        
+        const { images } =  await productStore.getProduct(id);
+
+        images.forEach(function (file) {
+
+          let mockFile = {
+              name: file.split('/').pop(),
+              size: 12345,
+              url: file
+          };
+
+          myDropzone.files.push(mockFile);
+          myDropzone.emit("addedfile", mockFile);
+          myDropzone.emit("thumbnail", mockFile, mockFile.url);
+          myDropzone.emit("complete", mockFile); 
+        });
+    }
+
       this.on("sending", function (file, xhr, formData) {
         // Add additional data to formData if needed
         formData.append("extraData", "value");
@@ -37,17 +61,24 @@ onMounted(() => {
 
       this.on("removedfile", function (file) {
           try {
-            const filePath = file.upload.filename;
+            
+            if(file.upload) {
+              const filePath = file.upload.filename;
 
-            http.post('/uploader/revert', { file_path: filePath })
-              .then(response => {
-                if (response.data.message) {
-                  productStore.files = productStore.files.filter(item => item !== filePath);
-                }
-              })
-              .catch(error => {
-                console.error('Error removing file:', error.response ? error.response.data : error.message);
-              });
+              http.post('/uploader/revert', { file_path: filePath })
+                .then(response => {
+                  if (response.data.message) {
+                    productStore.files = productStore.files.filter(item => item !== filePath);
+                  }
+                })
+                .catch(error => {
+                  console.error('Error removing file:', error.response ? error.response.data : error.message);
+                });
+            } else {
+              productStore.files = productStore.files.filter(item => item !== file.url);
+            }
+
+
           } catch (e) {
             console.error('Error parsing response:', e);
           }
@@ -80,6 +111,9 @@ onMounted(() => {
       };
     },
   });
+
+  
+
 });
 </script>
 
@@ -95,5 +129,19 @@ onMounted(() => {
   border: 2px dashed #007bff;
   padding: 20px;
   background-color: #f8f9fa;
+}
+
+.dropzone .dz-preview .dz-image {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    display: block;
+    z-index: 10;
+}
+
+.dropzone .dz-preview .dz-image img{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
 }
 </style>
