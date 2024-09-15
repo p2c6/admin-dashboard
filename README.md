@@ -69,9 +69,9 @@ SESSION_DOMAIN=localhost
 SANCTUM_STATEFUL_DOMAINS=localhost:8000,localhost:3000
 ```
 
-Don't forget to edit your database in your **.env**, the database default name in your **.env** is **admin_dashboard** but you can edit it based on your preference:
+Don't forget to edit your database in your **.env**, the database default name in your **.env** is **backend** but you can edit it based on your preference:
 ```sh
-DB_DATABASE=admin_dashboard
+DB_DATABASE=backend
 ```
 
 After setting up .env, link the storage with the command below:
