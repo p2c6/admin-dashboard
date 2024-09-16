@@ -159,6 +159,18 @@ const authStore = useAuthStore();
             
           </li>
           <li class="nav-item">
+            <RouterLink :to="{name: 'products.create'}" class="text-decoration-none">
+              <a class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Create Product
+                  
+                </p>
+              </a>
+            </RouterLink>
+            
+          </li>
+          <li class="nav-item">
             <RouterLink :to="{name: 'videos'}" class="text-decoration-none">
               <a class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
