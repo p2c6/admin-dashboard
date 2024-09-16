@@ -115,6 +115,7 @@ php artisan serve
 ## Example user
 
 username or email: jdoe@gmail.com or admin
+
 password: admin123
 
 
